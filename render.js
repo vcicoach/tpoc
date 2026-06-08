@@ -43,9 +43,13 @@
   }
   function cta(c, cls) {
     if (!c) return '';
-    return '<a href="' + attr(c.href || '#register') + '" class="btn shine popup-dang-ky ' + (cls || '') + '">' +
-      '<span class="main">' + esc(c.label) + '</span>' +
-      (c.sub ? '<span class="sub">' + esc(c.sub) + '</span>' : '') + '</a>';
+    var inner = '<span class="main">' + esc(c.label) + '</span>' +
+      (c.sub ? '<span class="sub">' + esc(c.sub) + '</span>' : '');
+    var klass = 'btn shine popup-dang-ky ' + (cls || '');
+    // popupCta = các nút chỉ mở popup, KHÔNG nhảy tới section theo id
+    return SITE.popupCta
+      ? '<button type="button" class="' + klass + '">' + inner + '</button>'
+      : '<a href="' + attr(c.href || '#register') + '" class="' + klass + '">' + inner + '</a>';
   }
   function wordmark(w) {
     if (!w) return '';
