@@ -1,0 +1,29 @@
+# Heavy / private source files - not deployed
+Meant for More*
+The Power of Coaching 2026*
+*_files/
+feedbacks/
+.claude/
+
+# Draft variants (kept locally, not deployed)
+clone.html
+coaching.html
+meant-for-more-template.html
+
+# Keep only the images actually used (everything else is loaded from CDN)
+coach-assets/*
+!coach-assets/logo.png
+!coach-assets/coach-portrait.png
+!coach-assets/cta-bg.png
+!coach-assets/fb-stat-10.png
+!coach-assets/fb-stat-14y.png
+!coach-assets/fb-stat-2000.png
+!coach-assets/stat-a.jpg
+!coach-assets/stat-b.jpg
+!coach-assets/stat-c.jpg
+assets/*
+!assets/brush.png
+
+# OS
+.DS_Store
+Thumbs.db
