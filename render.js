@@ -107,6 +107,7 @@
         var media = '<div class="hero-media">' +
           (s.mediaLabel ? '<span class="hero-media-top">' + esc(s.mediaLabel) + '</span>' : '') +
           img(s.image, s.imageAlt, { cls: 'hero-img', eager: true }) +
+          (s.video ? '<button type="button" class="hero-play" aria-label="Xem video giới thiệu" onclick="MFL.openVideo(\'' + attr(s.video) + '\')"><span class="hero-play-ring"></span></button>' : '') +
           (s.mediaCaption ? '<span class="hero-media-bot">' + esc(s.mediaCaption) + '</span>' : '') +
           '</div>';
         return '<section class="hero"><div class="ds-wrap">' +
@@ -166,7 +167,9 @@
 
     cards: function (s) {
       var cards = (s.cards || []).map(function (c) {
-        return '<div class="card">' + (c.n ? '<div class="n">' + esc(c.n) + '</div>' : '') +
+        var lead = c.icon ? '<div class="card-ic" aria-hidden="true">' + esc(c.icon) + '</div>'
+                          : (c.n ? '<div class="n">' + esc(c.n) + '</div>' : '');
+        return '<div class="card' + (c.icon ? ' card-iconled' : '') + '">' + lead +
           '<h3>' + esc(c.h) + '</h3><p>' + rich(c.p) + '</p></div>';
       }).join('');
       return '<section class="ds-section"><div class="ds-wrap">' +
@@ -177,6 +180,7 @@
         (s.note ? '<div class="afternote"><h3>' + esc(s.note.h) + '</h3>' +
           (s.note.p ? '<p>' + rich(s.note.p) + '</p>' : '') +
           (s.note.em ? '<p class="em">' + rich(s.note.em) + '</p>' : '') + '</div>' : '') +
+        (s.cta ? '<div class="btnwrap">' + cta(s.cta) + '</div>' : '') +
         '</div></section>';
     },
 
@@ -383,6 +387,21 @@
       ifr.setAttribute('allowfullscreen', '');
       ifr.setAttribute('title', 'Video cảm nhận học viên');
       btn.replaceWith(ifr);
+    },
+    openVideo: function (id) {
+      var lb = document.createElement('div');
+      lb.className = 'video-lightbox';
+      lb.innerHTML = '<div class="vl-backdrop"></div><div class="vl-inner">' +
+        '<button type="button" class="vl-close" aria-label="Đóng video">&times;</button>' +
+        '<div class="vl-frame"><iframe src="https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0" ' +
+        'allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen title="Video giới thiệu"></iframe></div></div>';
+      document.body.appendChild(lb);
+      document.body.style.overflow = 'hidden';
+      var onKey = function (e) { if (e.key === 'Escape') close(); };
+      function close() { lb.remove(); document.body.style.overflow = ''; document.removeEventListener('keydown', onKey); }
+      lb.querySelector('.vl-backdrop').onclick = close;
+      lb.querySelector('.vl-close').onclick = close;
+      document.addEventListener('keydown', onKey);
     },
     submit: function (e) {
       e.preventDefault();
