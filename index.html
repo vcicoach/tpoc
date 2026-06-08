@@ -89,16 +89,15 @@
   .feature:not(.feature-light) .ds-orange{ color:#a9d486; }   /* trên nền xanh đậm → xanh sáng */
   .statement .big{ color:#3f7726; }       /* "The Power of Coaching" trên nền kem → xanh đậm, rõ */
 
-  /* —— Mentor: nền kem sáng sạch + chữ gần đen để tương phản mạnh, dễ đọc —— */
-  .feature-light{ background:#faf7f0; }
+  /* —— Mentor: nền trắng sạch + chữ gần đen để tương phản mạnh, dễ đọc —— */
+  .feature-light{ background:#fff; }
   .feature-light h2{ color:#15321e; }
   .feature-light p{ color:#222; font-size:17px; }
   .feature-light p b, .feature-light strong{ color:#111; }
   .feature-light .q{ color:#15321e; border-left-color:var(--brand); }
 
   /* —— Background pattern toàn trang (đồng bộ với section "Đọc điều này trước") —— */
-  body{ background-color:var(--cream);
-        background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Ccircle cx='3' cy='3' r='1.3' fill='%2317444B' fill-opacity='0.05'/%3E%3C/svg%3E"); }
+  body{ background-color:#fff; background-image:none; }
   /* các section nền xanh đậm: thêm texture chấm sáng mờ cho có chiều sâu */
   .quote{ background-color:var(--accent-soft);
           background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Ccircle cx='3' cy='3' r='1.3' fill='%23ffffff' fill-opacity='0.05'/%3E%3C/svg%3E"); }
@@ -106,9 +105,8 @@
           background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Ccircle cx='3' cy='3' r='1.3' fill='%23ffffff' fill-opacity='0.05'/%3E%3C/svg%3E"); }
   footer{ background-color:var(--ink-bg);
           background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Ccircle cx='3' cy='3' r='1.3' fill='%23ffffff' fill-opacity='0.04'/%3E%3C/svg%3E"); }
-  /* mục lưới "Dành cho bạn nếu": nền kem + texture nhẹ (đậm hơn body một chút) */
-  .band-gray{ background-color:var(--cream-2);
-          background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Ccircle cx='3' cy='3' r='1.3' fill='%2317444B' fill-opacity='0.06'/%3E%3C/svg%3E"); }
+  /* mục lưới "Dành cho bạn nếu": nền trắng hoàn toàn */
+  .band-gray{ background-color:#fff; background-image:none; }
 
   /* ============ TĂNG ĐỘ NÉT MÀU — bớt mờ nhạt ============ */
   /* 1) Kicker xanh đậm (thay vì xanh nhạt) trên nền sáng → rõ, có lực */
@@ -132,8 +130,10 @@
   .gc .n{ color:#46792b; }
   .dr .big{ color:#46792b; }
   .vc.total .price{ color:#fff; }
-  /* 6) Pattern nền rõ hơn một chút để có texture (không quá mờ) */
-  body{ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Ccircle cx='3' cy='3' r='1.3' fill='%2317444B' fill-opacity='0.07'/%3E%3C/svg%3E"); }
+  /* nền trang = trắng hoàn toàn (#fff), bỏ texture chấm */
+  body{ background-image:none; }
+  /* section "Đọc điều này trước" cũng trắng hoàn toàn (bỏ hoạ tiết mê cung) */
+  .prose.pattern{ background-color:#fff; background-image:none; }
 
   /* ============ PHỐI NHỊP MÀU SECTION (sáng / tối xen kẽ, không dồn) ============ */
   /* Bỏ dải torn-edge (PNG cũ của MFM) — gây "đường trắng" ở mép section xanh */
@@ -154,19 +154,13 @@
   .value{ background-color:var(--ink-bg);
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Ccircle cx='3' cy='3' r='1.3' fill='%23ffffff' fill-opacity='0.05'/%3E%3C/svg%3E"); }
 
-  /* Fix: lớp "Thông báo/Message" của PopupX phủ full-screen ở z-index tối đa làm chặn click vào form đăng ký.
-     Cho click xuyên qua lớp phủ; ẩn hẳn iframe RỖNG (ô trắng do popup không có nội dung), giữ nội dung thật bấm được. */
-  .ladi-popupx-message,
-  .ladipage-message-box,
-  .ladipage-message-text{ pointer-events:none !important; background:transparent !important; }
-  /* ô trắng = iframe rỗng (không có src) → ẩn hẳn */
-  .ladi-popupx-message iframe:not([src]), .ladi-popupx-message iframe[src=""],
-  .ladipage-message-box iframe:not([src]), .ladipage-message-box iframe[src=""],
-  .ladipage-message-text iframe:not([src]), .ladipage-message-text iframe[src=""]{ display:none !important; }
-  /* iframe có nội dung thật vẫn hiển thị & bấm được */
-  .ladi-popupx-message iframe[src]:not([src=""]),
-  .ladipage-message-box iframe[src]:not([src=""]),
-  .ladipage-message-text iframe[src]:not([src=""]){ pointer-events:auto !important; }
+  /* Fix ô trắng PopupX: CHỈ vô hiệu hoá popup "message" RỖNG (chỉ chứa iframe không nội dung) — nguyên nhân
+     lớp phủ trắng chặn click. KHÔNG đụng tới message-box CÓ nội dung thật (bảng chọn mã giảm giá/voucher,
+     thông báo gửi form…) → các thành phần đó giữ nền + bấm được bình thường. */
+  .ladi-popupx-message:has(iframe:not([src])),
+  .ladi-popupx-message:has(iframe[src=""]){ pointer-events:none !important; }
+  .ladi-popupx-message iframe:not([src]),
+  .ladi-popupx-message iframe[src=""]{ display:none !important; }
 
   /* ============ NÚT VIDEO TRÊN ẢNH HERO + LIGHTBOX ============ */
   .hero-media{ position:relative; }
@@ -223,8 +217,8 @@ window.THEME = {
   'brand'      : '#7eab57',   // xanh sáng (CTA, điểm nhấn lớn)
   'brand-d'    : '#5f8a3e',   // xanh sáng đậm hơn (gradient nút)
   'green-deep' : '#17444B',   // xanh đậm (token phụ)
-  'cream'      : '#f1e8d4',   // kem ấm/sâu hơn (bớt nhạt, thẻ trắng nổi hơn)
-  'cream-2'    : '#e8ddc3',   // dải kem đậm hơn
+  'cream'      : '#ffffff',   // section nền sáng = trắng hoàn toàn
+  'cream-2'    : '#ffffff',   // dải sáng phụ = trắng hoàn toàn
   'accent-soft': '#17444B',   // dải quote → xanh đậm
   'accent-deep': '#17444B',   // ctaBand + thẻ giá
   'ink-bg'     : '#17444B'    // section nền tối → xanh đậm (Sau 3 ngày, footer…)
@@ -410,6 +404,14 @@ window.SITE = {
         { q:'Tôi sợ học xong rồi cũng để đó, không biết áp dụng vào đâu.', a:'Mỗi buổi đều có thực hành trực tiếp và phản hồi, cùng cộng đồng VCI để bạn tiếp tục luyện tập sau khóa — nên kiến thức không "để đó" mà dần thành thói quen ứng dụng.' },
         { q:'Nội dung có đủ thực tế để tôi dùng trong công việc hiện tại không?', a:'Rất thực tế. Coaching giúp bạn giao tiếp hiệu quả hơn, đặt câu hỏi rõ ràng hơn và giúp người khác ra quyết định nhanh hơn — áp dụng được trong bất kỳ vai trò nào.' },
         { q:'Tôi sẽ thật sự nhận được gì sau chương trình này?', a:'Bạn sẽ hiểu đúng bản chất coaching, nắm 2 kỹ năng nền tảng, áp dụng những mô hình coaching đơn giản vào thực tế và bắt đầu hành trình trở thành phiên bản tốt hơn của chính mình — có định hướng, rõ ràng và chuyển hoá hơn.' }
+      ] },
+
+    { type:'statement', kicker:'Bạn đã sẵn sàng?', title:'',
+      big:'The Power of Coaching',
+      paragraphs:[
+        'Có thể bạn đã nghe nhiều về Coaching, nhưng vẫn chưa thật sự hiểu Coaching là gì. Có thể bạn cảm thấy mình thích lắng nghe, thích hỗ trợ người khác, thích nhìn thấy con người thay đổi, nhưng vẫn chưa biết liệu điều đó có đủ để bắt đầu hành trình trở thành Coach chuyên nghiệp hay không…',
+        '**The Power of Coaching** được tạo ra để giúp bạn bắt đầu từ điểm đó.',
+        'Trong 3 ngày, bạn sẽ hiểu đúng bản chất Coaching, trải nghiệm những kỹ năng nền tảng và quan trọng hơn, có cơ hội nhìn lại chính mình để xác định liệu Coaching có thật sự phù hợp với con người, giá trị và định hướng nghề nghiệp của bạn hay không.'
       ] },
 
     { type:'finalCta',
