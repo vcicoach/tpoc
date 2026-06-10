@@ -45,9 +45,10 @@
     if (!c) return '';
     var inner = '<span class="main">' + esc(c.label) + '</span>' +
       (c.sub ? '<span class="sub">' + esc(c.sub) + '</span>' : '');
-    // Mọi nút là link tới trang đăng ký (không popup)
+    // Mọi nút là link tới trang đăng ký (không popup), mở tab mới nếu là URL ngoài
     var href = SITE.registerUrl || c.href || '#register';
-    return '<a href="' + attr(href) + '" class="btn shine ' + (cls || '') + '">' + inner + '</a>';
+    var ext = /^https?:/.test(href) ? ' target="_blank" rel="noopener noreferrer"' : '';
+    return '<a href="' + attr(href) + '"' + ext + ' class="btn shine ' + (cls || '') + '">' + inner + '</a>';
   }
   function wordmark(w) {
     if (!w) return '';
