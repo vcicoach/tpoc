@@ -45,11 +45,13 @@
     if (!c) return '';
     var inner = '<span class="main">' + esc(c.label) + '</span>' +
       (c.sub ? '<span class="sub">' + esc(c.sub) + '</span>' : '');
-    var klass = 'btn shine popup-dang-ky ' + (cls || '');
-    // popupCta = các nút chỉ mở popup, KHÔNG nhảy tới section theo id
-    return SITE.popupCta
+    // Hướng mới: nếu có SITE.registerUrl → MỌI nút là link tới trang đăng ký (không popup)
+    var href = SITE.registerUrl || c.href || '#register';
+    var popup = SITE.popupCta && !SITE.registerUrl;   // chỉ dùng cho trang test LadiPage
+    var klass = 'btn shine ' + (popup ? 'popup-dang-ky ' : '') + (cls || '');
+    return popup
       ? '<button type="button" class="' + klass + '">' + inner + '</button>'
-      : '<a href="' + attr(c.href || '#register') + '" class="' + klass + '">' + inner + '</a>';
+      : '<a href="' + attr(href) + '" class="' + klass + '">' + inner + '</a>';
   }
   function wordmark(w) {
     if (!w) return '';

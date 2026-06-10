@@ -154,14 +154,6 @@
   .value{ background-color:var(--ink-bg);
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Ccircle cx='3' cy='3' r='1.3' fill='%23ffffff' fill-opacity='0.05'/%3E%3C/svg%3E"); }
 
-  /* Fix ô trắng PopupX: CHỈ vô hiệu hoá popup "message" RỖNG (chỉ chứa iframe không nội dung) — nguyên nhân
-     lớp phủ trắng chặn click. KHÔNG đụng tới message-box CÓ nội dung thật (bảng chọn mã giảm giá/voucher,
-     thông báo gửi form…) → các thành phần đó giữ nền + bấm được bình thường. */
-  .ladi-popupx-message:has(iframe:not([src])),
-  .ladi-popupx-message:has(iframe[src=""]){ pointer-events:none !important; }
-  .ladi-popupx-message iframe:not([src]),
-  .ladi-popupx-message iframe[src=""]{ display:none !important; }
-
   /* ============ NÚT VIDEO TRÊN ẢNH HERO + LIGHTBOX ============ */
   .hero-media{ position:relative; }
   .hero-play{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
@@ -198,8 +190,6 @@
   .card-ic{ font-size:36px; line-height:1; margin-bottom:10px; }
   .card.card-iconled h3{ color:#46792b; }
 </style>
-<!-- PopupX SDK (LadiPage) — đặt chuẩn trong <head>, async (theo hướng dẫn LadiPage) -->
-<script src="https://w.ladicdn.com/popupx/v5/sdk.js" id="5fa4fa2fd5a5b24b34166c66" async></script>
 </head>
 <body>
 <div id="app"></div>
@@ -229,8 +219,8 @@ window.SITE = {
   countdownTarget: '2026-06-24T20:00:00+07:00',
   submitMessage: 'Cảm ơn bạn! Chỗ của bạn đã được ghi nhận. Đội ngũ VCI sẽ liên hệ xác nhận sớm.',
 
-  // Nút CTA chỉ mở popup (class popup-dang-ky), KHÔNG nhảy tới section theo id
-  popupCta: true,
+  // Hướng mới: MỌI nút điều hướng tới trang đăng ký (không popup)
+  registerUrl: 'https://thepowerofcoaching.vcicoach.com/dang-ky',
 
   // Đặt link nhận lead thật (Google Form/Apps Script/LadiPage…). Để trống = chế độ demo.
   formEndpoint: '',
@@ -268,7 +258,7 @@ window.SITE = {
         heading:'ĐĂNG KÝ <u>NGAY</u> HÔM NAY',
         join:'Tham gia cùng Coach Trần Tiến Công và VCI Team qua 3 ngày học online trên Zoom vào 24–26/06.',
         cta:{ label:'Đăng Ký Ngay Hôm Nay →', sub:'3 ngày · Zoom · Cơ hội học bổng 100%', href:'#dang-ky' },
-        note:'Bấm để mở form đăng ký — số lượng có hạn, ưu tiên người đăng ký sớm.'
+        note:'Nhấn để đăng ký ngay — số lượng có hạn, ưu tiên người đăng ký sớm.'
       } },
 
     { type:'marquee', items:['24, 25, 26 / 06 / 2026','20:00 - 22:00','Zoom virtual'] },
