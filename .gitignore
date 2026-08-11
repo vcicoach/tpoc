@@ -23,6 +23,7 @@ coach-assets/*
 !coach-assets/stat-c.jpg
 assets/*
 !assets/brush.png
+!assets/vci_tpoc_cover.jpeg
 
 # OS
 .DS_Store
